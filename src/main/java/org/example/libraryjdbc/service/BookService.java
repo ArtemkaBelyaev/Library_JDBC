@@ -27,17 +27,16 @@ public class BookService {
     }
 
     public boolean updateBook(Long id, Book book) {
-        if (bookRepository.existsById(id)) {
-            book.setId(id);
-            bookRepository.save(book);
+        if (bookRepository.findById(id).isPresent()) {
+            bookRepository.update(id, book);
             return true;
         }
         return false;
     }
 
     public boolean deleteBook(Long id) {
-        if (bookRepository.existsById(id)) {
-            bookRepository.deleteById(id);
+        if (bookRepository.findById(id).isPresent()) {
+            bookRepository.delete(id);
             return true;
         }
         return false;
